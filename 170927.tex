@@ -1,0 +1,38 @@
+\documentclass[a4j]{jarticle}
+\date{}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\algrenewcommand\algorithmicdo{}
+\title{170927}
+
+\begin{document}
+\maketitle
+
+\section{CATの項目選択基準として用いられる情報量(1)}
+Wim J. van der Linden \& Cees A.W. Glas ``Computerized Adaptive Testing'' \cite{b1}のChapter 1の3. Modern Proceduresで紹介されている情報量についてまとめる。
+
+\subsection{予備知識}
+適応テストにおいて初期の誤差の大きい推定能力値に対して項目選択を最適化してしまう問題は、テスト理論の減衰パラドックス（attenuation paradox）として知られる。
+文中に登場する``calibration sample''および``capitalization on chance''については別の機会に調べる。
+
+\subsection{Maximum Global-Information Criterion}
+
+試験開始時の大きな推定誤差に対処するため、ChangとYingは（17）のフィッシャーの情報をKullback-Leiblerの情報に基づいて置き換えることを提案した。 一般に、Kullback-Leiblerの情報は、2つの尤度の間の「距離」を測定します。 Kullback-Leiblerの情報が大きくなればなるほど、それをインデックス化するパラメータの値の間で2つの尤度、または同等のものを区別することが容易になります。
+（1）の応答モデルでは、被験者の真の能力値（θ0）と現在の能力推定値（k-1）に対するテストのk番目の項目に対応する応答変数のKullback-Leibler情報は しき。
+
+MI、MGI、MLWI、MEPWI < EVTI
+
+Maximum information (MI) method
+Maximum global information (MGI) method
+Maximum likelihood-weighted information (MLWI) method
+Maximum expected posterior weighted-information (MEPWI) method
+
+
+
+\begin{thebibliography}{9}
+  \bibitem{b1} Wim J. van der Linden \& Cees A.W. Glas, ``Computerized Adaptive Testing'', pp.11-23, 2003, ISBN 0-7923-6425-2.
+\end{thebibliography}
+
+\end{document}
