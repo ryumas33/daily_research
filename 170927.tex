@@ -11,25 +11,42 @@
 \maketitle
 
 \section{CATの項目選択基準として用いられる情報量(1)}
-Wim J. van der Linden \& Cees A.W. Glas ``Computerized Adaptive Testing'' \cite{b1}のChapter 1の3. Modern Proceduresで紹介されている情報量についてまとめる。
+Wim J. van der Linden \& Cees A.W. Glas ``Computerized Adaptive Testing'' \cite{b1}のChapter 1の3. Modern Proceduresで紹介されている情報量についてまとめる（ほぼそのまま翻訳）。
 
 \subsection{予備知識}
 適応テストにおいて初期の誤差の大きい推定能力値に対して項目選択を最適化してしまう問題は、テスト理論の減衰パラドックス（attenuation paradox）として知られる。
 文中に登場する``calibration sample''および``capitalization on chance''については別の機会に調べる。
 
 \subsection{Maximum Global-Information Criterion}
+試験開始時の大きな推定誤差に対処するため、ChangとYingはフィッシャー情報量の代わりに2つの確率分布の差異を測る尺度であるカルバック・ライブラー情報量を用いることを提案した。
+未知の真値$\theta_{0}$の尤度関数と現在の推定値$\hat{\theta}_{k-1}$の尤度関数に対するカルバック・ライブラー情報量は式(\ref{e1})となる。
 
-試験開始時の大きな推定誤差に対処するため、ChangとYingは（17）のフィッシャーの情報をKullback-Leiblerの情報に基づいて置き換えることを提案した。 一般に、Kullback-Leiblerの情報は、2つの尤度の間の「距離」を測定します。 Kullback-Leiblerの情報が大きくなればなるほど、それをインデックス化するパラメータの値の間で2つの尤度、または同等のものを区別することが容易になります。
-（1）の応答モデルでは、被験者の真の能力値（θ0）と現在の能力推定値（k-1）に対するテストのk番目の項目に対応する応答変数のKullback-Leibler情報は しき。
+\begin{eqnarray}
+  \label{e1}
+  K_{i_{k}}(\hat{\theta}_{k-1},\theta_{0}) \equiv E[\log\frac{L(\theta_{0}|U_{i_{k}})}{L(\hat{\theta}_{k-1}|U_{i_{k}})}]
+\end{eqnarray}
 
-MI、MGI、MLWI、MEPWI < EVTI
+式(\ref{e1})の期待値は応答変数$U_{ik}$によるため、式(\ref{e2})と計算できる。
 
-Maximum information (MI) method
-Maximum global information (MGI) method
-Maximum likelihood-weighted information (MLWI) method
-Maximum expected posterior weighted-information (MEPWI) method
+\begin{eqnarray}
+  \label{e2}
+  K_{i_{k}}(\hat{\theta}_{k-1},\theta_{0}) = p_{i_{k}}(\theta_{0})\log\frac{p_{i_{k}}(\theta_{0})}{p_{i_{k}}(\hat{\theta}_{k-1})} + [1-p_{i_{k}}(\theta_{0})]\log\frac{1-p_{i_{k}}(\theta_{0})}{1-p_{i_{k}}(\hat{\theta}_{k-1})}
+\end{eqnarray}
 
+応答変数間には条件付き独立性があるため、テストの最初の$k$個の項目の情報量は式(\ref{e3})のように書くことができる。
 
+\begin{eqnarray}
+  \label{e3}
+  K_{k}(\hat{\theta}_{k-1},\theta_{0}) \equiv E[\log\frac{L(\theta_{0}|U_{i_{1}},\ldots,U_{i_{k}})}{L(\hat{\theta}_{k-1}|U_{i_{1}},\ldots,U_{i_{k}})}] = \sum_{h=1}^{k}K_{i_{h}}(\hat{\theta}_{k-1},\theta_{0})
+\end{eqnarray}
+
+カルバック・ライブラー情報量は、応答変数が$\hat{\theta}_{k-1}$と$\theta_{0}$とをいかにうまく区別しているかを示す。$\theta_{0}$は未知であるため、ChangとYingは式(\ref{e1})を式(\ref{e4})のように現在の推定値についての区間の積分で置き換えることを提案している。
+
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\begin{eqnarray}
+  \label{e4}
+  i_{k} \equiv \argmax_{j}\left\{\int_{\hat{\theta}_{k-1}-\delta_{k}}^{\hat{\theta}_{k-1}+\delta_{k}}K_{j}(\hat{\theta}_{k-1},\theta)d\theta:j\in R_{k}\right\}
+\end{eqnarray}
 
 \begin{thebibliography}{9}
   \bibitem{b1} Wim J. van der Linden \& Cees A.W. Glas, ``Computerized Adaptive Testing'', pp.11-23, 2003, ISBN 0-7923-6425-2.
