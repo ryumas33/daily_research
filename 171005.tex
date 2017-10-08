@@ -1,0 +1,35 @@
+\documentclass[a4j]{jarticle}
+\date{}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\algrenewcommand\algorithmicdo{}
+\title{171005}
+
+\begin{document}
+\maketitle
+
+\section{CATの項目選択基準として用いられる情報量(5)}
+Wim J. van der Linden \& Cees A.W. Glas ``Computerized Adaptive Testing'' \cite{b1}のChapter 1の3. Modern Proceduresで紹介されている情報量についてまとめる（ほぼそのまま翻訳）。
+
+\subsection{Fully Bayesian Criteria(3)}
+あああああ
+
+
+
+
+以後の基準はいずれも事前事後分析に基づいている。それらは、$k-1$項目が提示された後のプール内の項目$i\in R_{k}$に対する応答を予測し、これらの応答の事後推定量の更新にしたがって次の項目を選択する。この分析における重要な要素は、以下の確率関数をもつ項目$i$に対する応答の事後予測分布である。
+
+\begin{eqnarray}
+  \label{e1}
+  p_{i}(\theta|u_{i_{1}},\ldots,u_{i_{k-1}}) = \int p_{i}(u_{i}|\theta)g(\theta|u_{i_{1}},\ldots,u_{i_{k-1}})d\theta
+\end{eqnarray}
+
+項目$i\in R_{k}$が選択されたとする。被検者は確率$p_{i}(1|u_{i_{1}},\ldots,u_{i_{k-1}})$でこの項目に正答する。正答は以下の量の更新につながる:(1)$\theta$の完全な事後分布。(2)被検者の能力の点推定値$\hat{\theta}_{k}$。(3)$\hat{\theta}_{k}$で観測された情報量。(4)$\theta$の事後分布の分散。誤答は確率$p_{i}(0|u_{i_{1}},\ldots,u_{i_{k-1}})$をもち、同様の更新になる。観測された情報量は項目$i$に対する応答によってのみ更新されるわけではないことに留意すべきである。点推定値$\hat{\theta}_{k}$の更新によって、情報量は以前のすべての応答についてもこの推定値で再評価されなければならない。
+
+\begin{thebibliography}{9}
+  \bibitem{b1} Wim J. van der Linden \& Cees A.W. Glas, ``Computerized Adaptive Testing'', pp.11-23, 2003, ISBN 0-7923-6425-2.
+\end{thebibliography}
+
+\end{document}
