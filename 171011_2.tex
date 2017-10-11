@@ -1,0 +1,39 @@
+\documentclass[a4j]{jarticle}
+\date{}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\algrenewcommand\algorithmicdo{}
+\title{171011.2}
+
+\begin{document}
+\maketitle
+
+\section{CATの項目選択基準として用いられる情報量(8)}
+Wim J. van der Linden \& Cees A.W. Glas ``Computerized Adaptive Testing'' \cite{b1}のChapter 1の3. Modern Proceduresで紹介されている情報量についてまとめる（ほぼそのまま翻訳）。
+
+\subsection{Bayesian Criteria with Random Item Parameters}
+較正サンプルが小さければ、項目パラメータの推定値の誤差を無視すべきではなく、むしろ$\theta$の値を推定する際に明示的に扱うべきである。ベイズ的アプローチは、点推定値で項目パラメータを修正するのではなく、能力推定手順で以前の応答データを与えられた事後分布を使用してランダムにする。Tsutakawa and Johnson (1990)は、この枠組みに基づく線型テストデータからの能力推定のための経験的ベイズ手順を示している。それらの手順は、CATに適用するために簡単に変更することができる。
+変更は次のようになる。$\bm{{\rm y}}$を、以前の全ての受検者からの応答データを含む行列とする。簡単にするために、プール内の項目パラメータ$(a_{i},b_{i},c{i})$がベクトル$\bm{\xi}$に集められる。新しい受検者が$k-1$項目に回答したとする。$\xi$について事前情報が与えられた場合、事後分布$g(\bm{\xi}|u_{i_{1}},\ldots,u_{i_{k-1}},\bm{{\rm y}})$の導出が標準的である。Tsutakawa and Johnson (1990)の仮定を用いて、$k-1$項の後の$\theta$の事後分布は以下である。
+
+\begin{eqnarray}
+  \label{e1}
+  g(\theta|u_{i_{1}},\ldots,u_{i_{k-1}},\bm{{\rm y}})=\frac{g(\theta)\int p(u_{i_{k-1}}|\theta,\bm{\xi})g(\bm{\xi}|u_{i_{1}},\ldots,u_{i_{k-2}},\bm{{\rm y}})}{p(u_{i_{k-1}}|u_{i_{1}},\ldots,u_{i_{k-1}},\bm{{\rm y}})}
+\end{eqnarray}
+
+この表現の鍵は、以前の全てのデータを与えられた項目パラメータについて事後分布にわたって平均化された応答$u_{i}$に対する尤度の置き換えである（？）。そのような平均化は、未知のパラメータにおける事後不確かさのためのベイズ的な方法である。$\theta$の事後確率が与えられると、項目$i$の応答に対する事後確率関数は以下になる。
+
+\begin{eqnarray}
+  \label{e2}
+  p_{i}(u_{i}|u_{i_{1}},\ldots,u_{i_{k-1}},\bm{{\rm y}})\equiv\int p_{i}(u_{i}|\theta)g(\theta|u_{i_{1}},\ldots,u_{i_{k-1}},\bm{{\rm y}})d\theta
+\end{eqnarray}
+
+一度式(\ref{e2})が計算されると、171003の式(1)または171010.1の式(1)と式(2)、171010.2の式(1)の基準の一つで使用できる。
+現在の計算能力があるにもかかわらず、複雑な積分の積の評価があるために、項目パラメータ事後分布$g(\bm{\xi}|u_{i_{1}},\ldots,u_{i_{k-1}},\bm{{\rm y}})$の直接の更新は禁止されている。しかし、実際には、被検者による異常行動の可能性のある暫定応答パターンおよび項目の妥協点（？）を最初に選別するたびに、事後的にのみ事後分布を更新することが理にかなっている。現在の被検者をテストするとき、事後分布は最後の更新後に得られた$g(\bm{\xi}|\bm{{\rm y}})$に固定することができる。式(\ref{e1})〜式(\ref{e2})の結果の式は、数値積分の適切な方法によってリアルタイムで容易に計算することができる。Tsutakawa and Johnson (1990)には、$g(\bm{\xi}|\bm{{\rm y}})$の更新の単純化の仮定が示されている。また、マルコフ連鎖モンテカルロ法に基づく数値近似が現在一般に利用可能である。最後に、混合アプローチに従うと、計算上の負担は徐々に減少し、事後分布の不確実性が十分に小さくなるとすぐに、後の手段で項目パラメータを修正する。
+
+\begin{thebibliography}{9}
+  \bibitem{b1} Wim J. van der Linden \& Cees A.W. Glas, ``Computerized Adaptive Testing'', pp.11-23, 2003, ISBN 0-7923-6425-2.
+\end{thebibliography}
+
+\end{document}

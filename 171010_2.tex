@@ -1,0 +1,42 @@
+\documentclass[a4j]{jarticle}
+\date{}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\algrenewcommand\algorithmicdo{}
+\title{171010.2}
+
+\begin{document}
+\maketitle
+
+\section{CATの項目選択基準として用いられる情報量(6)}
+Wim J. van der Linden \& Cees A.W. Glas ``Computerized Adaptive Testing'' \cite{b1}のChapter 1の3. Modern Proceduresで紹介されている情報量についてまとめる（ほぼそのまま翻訳）。
+
+\subsection{Fully Bayesian Criteria(4)}
+171003の式(1)と171010.1の式(2)の基準の根底にあるアイディアの最良の要素を、$\theta$の事後分布を用いて観測された情報に重み付けしその後、予測された応答についての期待値をとることによって組み合わせることが可能である。その新しい基準は式\ref{e1}である。
+
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\begin{eqnarray}
+\begin{split}
+  \label{e1}
+  i_{k} &\equiv \argmax_{j}\left\{p_{j}(0|u_{i_{1}},\ldots,u_{i_{k-1}})\right.\\
+  &\left.\int J_{u_{i_{1}},\ldots,u_{i_{k-1}},U_{j}=0}(\theta)g(\theta|u_{i_{1}},\ldots,u_{i_{k-1}},U_{j}=0)d\theta\right.\\
+  &\left.\int J_{u_{i_{1}},\ldots,u_{i_{k-1}},U_{j}=1}(\theta)g(\theta|u_{i_{1}},\ldots,u_{i_{k-1}},U_{j}=1)d\theta:j\in R_{k}\right\}
+\end{split}
+\end{eqnarray}
+
+これらの基準をより大きな予測期間に一般化することも可能である。例えば、応答が次の2つの項目について予測される場合、一般化は式\ref{e2}によって上記の基準における事後確率関数を置き換え、それに応じて他の事後更新を修正することを含む。
+
+\begin{eqnarray}
+  \label{e2}
+  p_{i}(u_{i}|u_{i_{1}},\ldots,u_{i_{k-1}})p_{h}(u_{h}|u_{i_{1}},\ldots,u_{i_{k-1}},u_{i})
+\end{eqnarray}
+
+最適化は項目$k$および$k+1$の候補の組に対して行われるが、項目$k$のみが管理され他の項目がプールに戻されるという手順が繰り返されると、被検者の能力に対するより良い適応が得られる。大きなアイテムプールにおける手続きの適用に固有の組み合わせ問題は、プールの調整されたバージョンを使用することによって回避することができ、項目$k$または$k+1$のにあたる可能性が低い候補は除外される。
+
+\begin{thebibliography}{9}
+  \bibitem{b1} Wim J. van der Linden \& Cees A.W. Glas, ``Computerized Adaptive Testing'', pp.11-23, 2003, ISBN 0-7923-6425-2.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass[a4j]{jarticle}
+\date{}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\algrenewcommand\algorithmicdo{}
+\title{171011.1}
+
+\begin{document}
+\maketitle
+
+\section{CATの項目選択基準として用いられる情報量(7)}
+Wim J. van der Linden \& Cees A.W. Glas ``Computerized Adaptive Testing'' \cite{b1}のChapter 1の3. Modern Proceduresで紹介されている情報量についてまとめる（ほぼそのまま翻訳）。
+
+\subsection{Bayesian Criteria with an Emprirical Prior}
+先に示したように、ベイズ能力推定値を選択するベイズ能力推定値を選択する際には、$\theta$の真値に位置する有益な事前情報が不可欠である。項目選択基準が多種多様である場合、有益な事前情報は有限の初期能力推定値をもたらすだけでなく、項目選択を改善しテスト中の推定値の収束を早める。例えば、被検者の背景情報が存在する以前の成果や関連するテストでのパフォーマンスを前提にすることがまず考えられる。技術的には、このアイディアに対する反対は存在しない。適応型テストでは、関心が$\theta$のML推定値またはベイズ推定値のみにある場合、選択基準は無視される（Mislevy \& Wu, 1988）。それにもかかわらず、政治的な考慮が事前情報に基づくテストスコアの使用を妨げるならば、実践的な戦略は項目選択を経験的な事前情報の更新に基づかせ、最終的な能力推定の計算は尤度からのみ行うようにすることであろう。van der Linden (1999)は、2PLMの背景変数に回帰した事前分布を用いた適応型テストの手順を記載している。予測変数を$X_{p},p=0,\ldots,P$とする。予測変数上の$\theta$の回帰は、以下のようにモデル化することができる。
+
+\begin{eqnarray}
+  \label{e1}
+  \theta=\beta_{0}+\beta_{1}X_{1}+\ldots+\beta_{P}X_{P}+\varepsilon
+\end{eqnarray}
+
+\begin{eqnarray}
+  \label{e2}
+  \varepsilon\sim N(0,\sigma^{2})
+\end{eqnarray}
+
+171010.2の式(2)を{資料の式(1)}の応答モデルに代入すると、以下になる。
+
+\begin{eqnarray}
+  \label{e3}
+  p_{i}(\theta)=\frac{\exp[a_{i}(\beta_{0}+\beta_{1}X_{1}+\ldots+\beta_{P}X_{P}+\varepsilon-b_{i})]}{1+\exp[a_{i}(\beta_{0}+\beta_{1}X_{1}+\ldots+\beta_{P}X_{P}+\varepsilon-b_{i})]}
+\end{eqnarray}
+
+項目パラメータの既知の値については、式(\ref{e1})のモデルは、$\varepsilon$が欠落した被検者スコアを有するロジスティック回帰モデルである。パラメータ$\beta$と$\sigma$の値は、EMアルゴリズムを用いてデータから推定することができる。推定手順は、van der Linden（1999, 式16-17）で与えられた2つの再帰的関係を反復的に解くことに帰着する。これらの式は、一連のプリテストのデータに対して容易に解かれる。また、適応型テストが動作しているときに、応答データからパラメータ推定値を定期的に更新することができる。項目選択が能力の点推定値に基づく場合、予測変数上の$\theta$の回帰値、式(\ref{e4})は最初の項目が選択される前の能力推定値として使用することができる。
+
+\begin{eqnarray}
+  \label{e4}
+  \hat{\theta}_{0}=\beta_{0}+\beta_{1}x_{1}+\ldots\beta_{P}x_{P}
+\end{eqnarray}
+
+項目が$\theta$の完全事前分布を使用して選択される場合、式(\ref{e2})と式(\ref{e3})は以下になる。
+
+\begin{eqnarray}
+  \label{e5}
+  g(\theta)\equiv N(\hat{\theta}_{0},\sigma)
+\end{eqnarray}
+
+適応型テストの経験的な初期化には統計的な利点以上のものがある。初期化が固定項目に基づいている場合、テストの最初の項目は常にプール内の同じサブセットから選択され、すぐに露出過度になる（Stocking\&Lewis, 本書）。一方、テストの経験的な初期化は、プールへの可変的な入り口を伴い、したがって項目のより均一な露出をもたらす。
+
+\begin{thebibliography}{9}
+  \bibitem{b1} Wim J. van der Linden \& Cees A.W. Glas, ``Computerized Adaptive Testing'', pp.11-23, 2003, ISBN 0-7923-6425-2.
+\end{thebibliography}
+
+\end{document}
